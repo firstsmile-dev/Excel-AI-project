@@ -2,3 +2,4 @@ venv
 public
 runMacro
 .env
+__pycache__
