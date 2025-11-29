@@ -6,7 +6,7 @@ import json
 from typing import Sequence
 from types import SimpleNamespace
 
-from initCsvfile import (
+from init_csv import (
     PUBLIC_DIR,
     filter_by_binding,
     read_public_csv,
