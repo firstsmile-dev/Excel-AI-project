@@ -339,7 +339,7 @@ def run_excel_process():
             for col, json_key in OUTPUT_MAPPING.items():
                 cell = out_sheet.Range(f"{col}{row}")
                 record[json_key] = cell.Value
-                record[f"{json_key}_color"] = cell.Interior.Color
+                record[f"{json_key}_color"] = cell.DisplayFormat.Interior.Color
             results.append(record)
         with open(JSON_OUTPUT_PATH, "w", encoding="utf-8") as f:
             json.dump(results, f, ensure_ascii=False, indent=2)

@@ -90,7 +90,9 @@ def edit_json_with_openai(
                     }
                 ],
             )
-            edited_data.append(response.output_text)
+            new_item = item.copy()
+            new_item["指定文字列を削除/変換"] = response.output_text
+            edited_data.append(new_item)
         except json.JSONDecodeError as exc:
             logging.error(f"Model did not return valid JSON: {exc}")
             raise ValueError(
