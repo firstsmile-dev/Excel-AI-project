@@ -50,9 +50,9 @@ INPUT_MAPPING = {
 
 # Output Mapping: Excel Column → JSON key in result
 OUTPUT_MAPPING = {
-    "I": "指定文字列を削除/変換",
-    "J": "削除語",
-    "K": "特殊文字",
+    "I": "タイトル",
+    "F": "ASIN",
+    "G": "巻数",
 }
 
 # =============================
@@ -339,7 +339,21 @@ def run_excel_process():
             for col, json_key in OUTPUT_MAPPING.items():
                 cell = out_sheet.Range(f"{col}{row}")
                 record[json_key] = cell.Value
-                record[f"{json_key}_color"] = cell.DisplayFormat.Interior.Color
+                if(json_key == "タイトル"):
+                    colors = cell.DisplayFormat.Interior.Color
+                    if colors == 9895780.0:
+                        record["color"] = True
+                    else:
+                        record["color"] = False
+                if(json_key == "巻数"):
+                    cell_value = cell.Value
+                    if cell_value is None:
+                        record["巻数"] = 0
+                    else:
+                        try:
+                            record["巻数"] = int(cell_value)
+                        except ValueError:
+                            record["巻数"] = 0
             results.append(record)
         with open(JSON_OUTPUT_PATH, "w", encoding="utf-8") as f:
             json.dump(results, f, ensure_ascii=False, indent=2)

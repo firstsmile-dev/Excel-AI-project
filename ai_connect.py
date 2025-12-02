@@ -73,25 +73,29 @@ def edit_json_with_openai(
                 では次に、整理前タイトルを入力します。"""
     edited_data = []
     for item in data:
-        user_content = item.get("指定文字列を削除/変換")
+        user_content = item.get("タイトル")
+        color = item.get("color", False)
+        new_item = item.copy()
         try:
-            response = client.responses.create(
-                model=model,
-                instructions=system_msg,
-                input=[
-                    {
-                        "role": "user",
-                        "content": [
-                            {
-                                "type": "input_text",
-                                "text": user_content,
-                            }
-                        ],
-                    }
-                ],
-            )
-            new_item = item.copy()
-            new_item["指定文字列を削除/変換"] = response.output_text
+            if color == True:
+                response = client.responses.create(
+                    model=model,
+                    instructions=system_msg,
+                    input=[
+                        {
+                            "role": "user",
+                            "content": [
+                                {
+                                    "type": "input_text",
+                                    "text": user_content,
+                                }
+                            ],
+                        }
+                    ],
+                )
+                new_item["タイトル"] = response.output_text
+            else:
+                new_item["タイトル"] = user_content
             edited_data.append(new_item)
         except json.JSONDecodeError as exc:
             logging.error(f"Model did not return valid JSON: {exc}")
