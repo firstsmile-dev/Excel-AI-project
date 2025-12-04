@@ -76,24 +76,32 @@ def edit_json_with_openai(
                     6. 原作名とシリーズ名の区別が必要な場合は、**シリーズ名を優先** してください。  
                     7. 表記は **日本語のまま、正式名称に統一** してください。  
                     8. **コメントや説明文は一切書かず、タイトルのみを出力** してください。
+                    9. タイトルに巻数を示す数字（3、ローマ数字、日本語の漢数字など）が含まれている場合はお知らせください。
+                       数字が含まれているときは、それが本の巻数を正確に示しているかどうかを判定し、巻数であると判断した場合は数字だけを教えてください（例：3）。
 
                     # Example1
                     <user_query>
-                    暴食のベルセルク ～俺だけレベルという概念を突破する～ THE COMIC  
+                    ちびっ子転生日記帳～お友達いっは?いつくりましゅ!～ THE COMIC 2 (マッグガーデンコミック Beat'sシリーズ)  
                     </user_query>
 
                     <assistant_response>
-                    暴食のベルセルク～俺だけレベルという概念を突破する～ THE COMIC  
+                    ちびっ子転生日記帳～お友達いっぱいつくりましゅ!～ THE COMIC
+                    </assistant_response>
+                    <assistant_response>
+                    2
                     </assistant_response>
 
                     # Example2
 
                     <user_query>
-                    ラーメン大好き小泉さん【秋田書店版】  
+                    ミッドナイトレストラン 7to7  
                     </user_query>
 
                     <assistant_response>
-                    ラーメン大好き小泉さん 
+                    ミッドナイトレストラン 7to7
+                    </assistant_response>
+                    <assistant_response>
+                    0
                     </assistant_response>
 
                     # Example3
@@ -105,6 +113,9 @@ def edit_json_with_openai(
                     <assistant_response>
                     ながたんと青と－いちかの料理帖－  
                     </assistant_response>
+                    <assistant_response>
+                    0
+                    </assistant_response>
 
                     # Example4
 
@@ -113,19 +124,51 @@ def edit_json_with_openai(
                     </user_query>
 
                     <assistant_response>
-                    おっさん底辺治癒士と愛娘の辺境ライフ～中年男が回復スキルに覚醒して、英雄へ成り上がる～  
+                    おっさん底辺治癒士と愛娘の辺境ライフ～中年男が回復スキルに覚醒して、英雄へ成り上がる～ 
+                    </assistant_response>
+                    <assistant_response>
+                    0
                     </assistant_response>
 
                     # Example5
 
                     <user_query>
-                    JUMBO MAX 
+                    ハボウの轍 4 ~公安調査庁調査官・土師空也~
                     </user_query>
 
                     <assistant_response>
-                    JUMBO MAX～ハイパーED薬密造人～
+                    ハボウの轍～公安調査庁調査官・土師空也～
+                    </assistant_response>
+                    <assistant_response>
+                    4
                     </assistant_response>
 
+                    # Example6
+
+                    <user_query>
+                    バリタチNo.1に負けた俺がネコデビューするまで (DAITO COMICS)
+                    </user_query>
+
+                    <assistant_response>
+                    バリタチNo.1に負けた俺がネコデビューするまで
+                    </assistant_response>
+                    <assistant_response>
+                    0
+                    </assistant_response>
+
+                    # Example7
+
+                    <user_query>
+                    私と結婚した事、後悔していませんか?VI (秋水デジタルコミックス)
+                    </user_query>
+
+                    <assistant_response>
+                    私と結婚した事、後悔していませんか?
+                    </assistant_response>
+                    <assistant_response>
+                    4
+                    </assistant_response>
+                    
                     # Context
                     以下にユーザーが未整理のタイトル一覧を入力します。  
                     ルールに従って正式タイトルのみを抽出・整形してください。"""
@@ -151,10 +194,17 @@ def edit_json_with_openai(
                         }
                     ],
                 )
-                new_item["タイトル"] = response.output_text
+                text = response.output_text
+                lines = [line.strip() for line in text.split("\n") if line.strip()]
+                title = lines[0]
+                explanation = lines[1]
+                new_item["タイトル"] = title
+                if(explanation != "0" ):
+                    new_item["巻数"] = explanation
             else:
                 new_item["タイトル"] = user_content
             edited_data.append(new_item)
+            print("response", edited_data)
         except json.JSONDecodeError as exc:
             logging.error(f"Model did not return valid JSON: {exc}")
             raise ValueError(
@@ -169,12 +219,39 @@ def edit_json_with_openai(
 
     return edited_data
 
+def input_json_convert_csv(json_data, csv_path:str):
+    import csv
+    """Convert JSON data to CSV and save to the specified path."""
+    if not json_data:
+        logging.warning("No data provided for CSV conversion.")
+        return
+    try:
+        with open(csv_path, "r", encoding="cp932", errors="ignore") as f:
+            reader = csv.reader(f)
+            rows = list(reader)
+        real_data = rows[0:1]  # header row
+        for item in json_data:
+            row = [""] * len(rows[0])
+            row[2] = item.get("タイトル", "") #C column
+            row[6] = item.get("巻数", "") #G column
+            row[14] = item.get("ASIN", "") #O column
 
+            real_data.append(row)
+        print("real data", real_data)
+
+        with open(csv_path, "w", encoding="cp932", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerows(real_data)
+        return True
+    except Exception as exc:
+        logging.error(f"Error converting JSON to CSV: {exc}")
+        raise RuntimeError(f"Error converting JSON to CSV: {exc}") from exc
 
 # Example usage:
 if __name__ == "__main__":
     try:
         edited_data = edit_json_with_openai("./runMacro/target_macro_output.json")
-        print(edited_data)
+        convert_info = input_json_convert_csv(edited_data, "./public/最終.csv")
+        print(convert_info)
     except Exception as e:
         logging.error(f"Error in OpenAI processing: {e}")

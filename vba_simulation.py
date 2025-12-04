@@ -348,12 +348,12 @@ def run_excel_process():
                 if(json_key == "巻数"):
                     cell_value = cell.Value
                     if cell_value is None:
-                        record["巻数"] = 0
+                        record["巻数"] = 1
                     else:
                         try:
                             record["巻数"] = int(cell_value)
                         except ValueError:
-                            record["巻数"] = 0
+                            record["巻数"] = 1
             results.append(record)
         with open(JSON_OUTPUT_PATH, "w", encoding="utf-8") as f:
             json.dump(results, f, ensure_ascii=False, indent=2)
