@@ -90,4 +90,13 @@ def main(argv: Sequence[str] | None = None) -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    try:
+        main_success = main()
+        if main_success == 0:
+            run_script = __import__("vba_simulation")
+            vba_success = run_script.run_excel_process()
+            if vba_success != 0:
+                run_script = __import__("ai_connect")
+                ai_success = run_script.__main__()
+    except Exception as e:
+        logging.error(f"Error in main execution: {e}")

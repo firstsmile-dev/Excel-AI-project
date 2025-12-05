@@ -26,7 +26,7 @@ OUTPUT_SHEET = "タイトル"
 MACRO_NAME = "Trimming"
 
 START_ROW = 2  # Excel input starts at row 2
-MAX_RECORDS = 10  # Limit to 10 records for testing
+MAX_RECORDS = 8000  # Limit to 10 records for testing
 
 # Configure logging
 logging.basicConfig(
@@ -45,7 +45,7 @@ INPUT_MAPPING = {
     "先祖ID": "B",                 # Column B: AncestorID (先祖ID in Japanese)
     "管理タイトル": "C",            # Column C: AdministrativeTitle (管理タイトル in Japanese)
     "Amazonタイトル": "D",          # Column D: AmazonTitle (Amazonタイトル in Japanese)
-    "先祖-ASIN": "F",
+    "ASIN": "F",
 }
 
 # Output Mapping: Excel Column → JSON key in result
@@ -210,27 +210,33 @@ def run_excel_process():
         logging.info(f"Writing {len(input_data)} records to columns A-D starting at row {START_ROW}...")
         for idx, row_data in enumerate(input_data):
             row = START_ROW + idx
-            for key, col in INPUT_MAPPING.items():
-                if key in row_data:
-                    value = row_data[key]
-                    in_sheet.Range(f"{col}{row}").Value = value
-                    if idx < 3:
-                        logging.info(f"Row {row}, Col {col}: {key} = {str(value)[:50]}...")
-        logging.info(f"✓ Data written successfully to {len(input_data)} rows")
-
-        logging.info(f"Writing formulas to columns G and H...")
-        for idx in range(len(input_data)):
-            row = START_ROW + idx
             next_row = row + 1
             value = idx + 1
+
+            # --- Write input data ---
+            for key, col in INPUT_MAPPING.items():
+                if key in row_data:
+                    cell_value = row_data[key]
+                    in_sheet.Range(f"{col}{row}").Value = cell_value
+
+                    if idx < 3:
+                        logging.info(
+                            f"Row {row}, Col {col}: {key} = {str(cell_value)[:50]}..."
+                        )
+
+            # --- Write formulas ---
             in_sheet.Range(f"E{row}").Value = value
-            formula_g = f"=getvol(D{next_row})"
+
+            formula_g = f"=getvol(D{row})"
             in_sheet.Range(f"G{row}").Formula = formula_g
+
             formula_h = f"=GetPureTitle(D{row})"
             in_sheet.Range(f"H{row}").Formula = formula_h
+
             if idx < 3:
                 logging.info(f"Row {row}: G={formula_g}, H={formula_h}")
-        logging.info(f"✓ Formulas written successfully to {len(input_data)} rows")
+
+        logging.info(f"✓ Data + formulas written successfully to {len(input_data)} rows")
 
         available_macros = []
         try:
@@ -336,24 +342,30 @@ def run_excel_process():
         for idx, row_data in enumerate(input_data):
             row = START_ROW + idx
             record = {}
+
             for col, json_key in OUTPUT_MAPPING.items():
                 cell = out_sheet.Range(f"{col}{row}")
-                record[json_key] = cell.Value
-                if(json_key == "タイトル"):
-                    colors = cell.DisplayFormat.Interior.Color
-                    if colors == 9895780.0:
-                        record["color"] = True
-                    else:
-                        record["color"] = False
-                if(json_key == "巻数"):
-                    cell_value = cell.Value
-                    if cell_value is None:
+                value = cell.Value
+                record[json_key] = value
+
+                # --- Title color check ---
+                if json_key == "タイトル":
+                    color_value = cell.DisplayFormat.Interior.Color
+                    record["color"] = (color_value == 9895780.0)
+
+                # --- Volume number (巻数) ---
+                if json_key == "巻数":
+                    if value is None:
                         record["巻数"] = 1
                     else:
                         try:
-                            record["巻数"] = int(cell_value)
-                        except ValueError:
+                            record["巻数"] = int(value)
+                        except:
                             record["巻数"] = 1
+
+            # ★ IMPORTANT: Print AFTER finishing all columns
+            print("record:", record)
+
             results.append(record)
         with open(JSON_OUTPUT_PATH, "w", encoding="utf-8") as f:
             json.dump(results, f, ensure_ascii=False, indent=2)

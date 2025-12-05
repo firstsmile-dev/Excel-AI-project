@@ -86,8 +86,6 @@ def edit_json_with_openai(
 
                     <assistant_response>
                     ちびっ子転生日記帳～お友達いっぱいつくりましゅ!～ THE COMIC
-                    </assistant_response>
-                    <assistant_response>
                     2
                     </assistant_response>
 
@@ -99,8 +97,6 @@ def edit_json_with_openai(
 
                     <assistant_response>
                     ミッドナイトレストラン 7to7
-                    </assistant_response>
-                    <assistant_response>
                     0
                     </assistant_response>
 
@@ -112,8 +108,6 @@ def edit_json_with_openai(
 
                     <assistant_response>
                     ながたんと青と－いちかの料理帖－  
-                    </assistant_response>
-                    <assistant_response>
                     0
                     </assistant_response>
 
@@ -125,8 +119,6 @@ def edit_json_with_openai(
 
                     <assistant_response>
                     おっさん底辺治癒士と愛娘の辺境ライフ～中年男が回復スキルに覚醒して、英雄へ成り上がる～ 
-                    </assistant_response>
-                    <assistant_response>
                     0
                     </assistant_response>
 
@@ -138,8 +130,6 @@ def edit_json_with_openai(
 
                     <assistant_response>
                     ハボウの轍～公安調査庁調査官・土師空也～
-                    </assistant_response>
-                    <assistant_response>
                     4
                     </assistant_response>
 
@@ -151,8 +141,6 @@ def edit_json_with_openai(
 
                     <assistant_response>
                     バリタチNo.1に負けた俺がネコデビューするまで
-                    </assistant_response>
-                    <assistant_response>
                     0
                     </assistant_response>
 
@@ -164,8 +152,6 @@ def edit_json_with_openai(
 
                     <assistant_response>
                     私と結婚した事、後悔していませんか?
-                    </assistant_response>
-                    <assistant_response>
                     4
                     </assistant_response>
                     
@@ -195,6 +181,7 @@ def edit_json_with_openai(
                     ],
                 )
                 text = response.output_text
+                print("response text", text)
                 lines = [line.strip() for line in text.split("\n") if line.strip()]
                 title = lines[0]
                 explanation = lines[1]
@@ -204,7 +191,6 @@ def edit_json_with_openai(
             else:
                 new_item["タイトル"] = user_content
             edited_data.append(new_item)
-            print("response", edited_data)
         except json.JSONDecodeError as exc:
             logging.error(f"Model did not return valid JSON: {exc}")
             raise ValueError(
@@ -237,7 +223,6 @@ def input_json_convert_csv(json_data, csv_path:str):
             row[14] = item.get("ASIN", "") #O column
 
             real_data.append(row)
-        print("real data", real_data)
 
         with open(csv_path, "w", encoding="cp932", newline="") as f:
             writer = csv.writer(f)
@@ -248,7 +233,7 @@ def input_json_convert_csv(json_data, csv_path:str):
         raise RuntimeError(f"Error converting JSON to CSV: {exc}") from exc
 
 # Example usage:
-if __name__ == "__main__":
+def __main__():
     try:
         edited_data = edit_json_with_openai("./runMacro/target_macro_output.json")
         convert_info = input_json_convert_csv(edited_data, "./public/最終.csv")
