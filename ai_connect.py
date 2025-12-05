@@ -1,4 +1,3 @@
-
 """
 ai_connect.py - Uses OpenAI API to process macro output JSON.
 Refactored for better error handling, logging, and clarity.
@@ -8,6 +7,7 @@ import json
 import os
 import logging
 from typing import Any
+import glob
 
 from dotenv import load_dotenv
 from openai import APIError, AuthenticationError, OpenAI
@@ -232,11 +232,24 @@ def input_json_convert_csv(json_data, csv_path:str):
         logging.error(f"Error converting JSON to CSV: {exc}")
         raise RuntimeError(f"Error converting JSON to CSV: {exc}") from exc
 
+def find_file_by_ext(folder: str, ext: str) -> str | None:
+    """Find the first file with the given extension in the folder."""
+    files = glob.glob(os.path.join(folder, f"*.{ext}"))
+    return files[0] if files else None
+
 # Example usage:
 def __main__():
     try:
-        edited_data = edit_json_with_openai("./runMacro/target_macro_output.json")
-        convert_info = input_json_convert_csv(edited_data, "./public/最終.csv")
+        json_path = find_file_by_ext("./public", "json")
+        csv_path = find_file_by_ext("./public", "csv")
+        if not json_path:
+            logging.error("No .json file found in ./public")
+            return
+        if not csv_path:
+            logging.error("No .csv file found in ./public")
+            return
+        edited_data = edit_json_with_openai(json_path)
+        convert_info = input_json_convert_csv(edited_data, csv_path)
         print(convert_info)
     except Exception as e:
         logging.error(f"Error in OpenAI processing: {e}")
