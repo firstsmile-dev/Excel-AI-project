@@ -3,3 +3,5 @@ public
 runMacro
 .env
 __pycache__
+dist
+build
