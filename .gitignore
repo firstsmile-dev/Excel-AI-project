@@ -5,3 +5,6 @@ runMacro
 __pycache__
 dist
 build
+*.spec
+*.pyc
+*.exe

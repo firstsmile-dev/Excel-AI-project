@@ -9,15 +9,14 @@ from tkinter import messagebox
 import threading
 import time
 import os
-import importlib
 import logging
 from typing import Sequence, Any
-import importlib
 import json
 import win32com.client as win32
 import glob
 from dotenv import load_dotenv
 from openai import APIError, AuthenticationError, OpenAI
+import sys
 
 # Load environment variables from .env file
 load_dotenv()
@@ -26,13 +25,31 @@ load_dotenv()
 # Get the directory where this script is located
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
+# Fix: Always use the real public folder next to the .exe for all file writes/reads
+if getattr(sys, 'frozen', False):
+    # Running as .exe
+    BASE_DIR = os.path.dirname(sys.executable)
+else:
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PUBLIC_DIR = os.path.join(BASE_DIR, 'public')
+
 # Utility to find first file by extension in a folder
+# Fix: Use sys._MEIPASS for PyInstaller compatibility
+
+def resource_path(relative_path):
+    """Get absolute path to resource, works for dev and for PyInstaller bundle."""
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath(os.path.dirname(__file__)), relative_path)
+
 def find_file_by_ext(folder: str, ext: str) -> str | None:
     files = glob.glob(os.path.join(folder, f"*.{ext}"))
     return files[0] if files else None
 
-EXCEL_PATH = find_file_by_ext(os.path.join(SCRIPT_DIR, "public"), "xlsm")
-JSON_OUTPUT_PATH = find_file_by_ext(os.path.join(SCRIPT_DIR, "public"), "json")
+# Update all file paths to use PUBLIC_DIR
+EXCEL_PATH = find_file_by_ext(PUBLIC_DIR, "xlsm")
+JSON_OUTPUT_PATH = os.path.join(PUBLIC_DIR, "target_macro_output.json")
+CSV_OUTPUT_PATH = find_file_by_ext(PUBLIC_DIR, "csv")
 
 INPUT_SHEET = "タイトル"  # Sheet name (can be "Title" or "タイトル")
 OUTPUT_SHEET = "タイトル"
@@ -363,11 +380,11 @@ def input_json_convert_csv(json_data, csv_path:str):
 class MainApp(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Excel-AI Project")
+        self.title("Excel-AIプロジェクト")
         self.geometry("500x300")
         self.resizable(False, False)
         # History window
-        history_frame = tk.LabelFrame(self, text="History", padx=5, pady=5)
+        history_frame = tk.LabelFrame(self, text="歴史", padx=5, pady=5)
         history_frame.pack(fill="both", expand=False, padx=10, pady=10)
         self.history_text = tk.Text(history_frame, height=10, state="disabled", wrap="word")
         self.history_text.pack(fill="both", expand=True)
@@ -378,9 +395,9 @@ class MainApp(tk.Tk):
         # Buttons
         btn_frame = tk.Frame(self)
         btn_frame.pack(pady=20)
-        self.start_btn = ttk.Button(btn_frame, text="Start", command=self.start_workflow)
+        self.start_btn = ttk.Button(btn_frame, text="開始", command=self.start_workflow)
         self.start_btn.grid(row=0, column=0, padx=10)
-        self.stop_btn = ttk.Button(btn_frame, text="Stop", command=self.stop_workflow, state="disabled")
+        self.stop_btn = ttk.Button(btn_frame, text="停止", command=self.stop_workflow, state="disabled")
         self.stop_btn.grid(row=0, column=1, padx=10)
         # State
         self._timer_running = False
@@ -400,7 +417,7 @@ class MainApp(tk.Tk):
         self._timer_running = True
         self._start_time = time.time()
         self.update_timer()
-        self.log_history("[START] Workflow started.")
+        self.log_history("[START] ワークフローが開始されました。")
         self._workflow_thread = threading.Thread(target=self.run_main_workflow, daemon=True)
         self._workflow_thread.start()
 
@@ -408,8 +425,8 @@ class MainApp(tk.Tk):
         self._timer_running = False
         self.start_btn.config(state="normal")
         self.stop_btn.config(state="disabled")
-        self.log_history("[STOP] Process stopped by user.")
-        messagebox.showinfo("Stopped", "Process stopped by user.")
+        self.log_history("[STOP] ユーザーによってプロセスが停止されました。")
+        messagebox.showinfo("停止", "プロセスはユーザーによって停止されました。")
 
     def update_timer(self):
         if self._timer_running:
@@ -421,22 +438,20 @@ class MainApp(tk.Tk):
 
     def run_main_workflow(self):
         try:
-            self.log_history("[INFO] Running main workflow...")
+            self.log_history("[INFO] メインワークフローを実行しています...")
             # Step 1: Run vba_simulation.py workflow
             vba_success = run_excel_process()
             if vba_success is not None:
-                json_path = find_file_by_ext("./public", "json")
-                csv_path = find_file_by_ext("./public", "csv")
-                edited_data = edit_json_with_openai(json_path)
-                convert_info = input_json_convert_csv(edited_data, csv_path)
+                edited_data = edit_json_with_openai(JSON_OUTPUT_PATH)
+                convert_info = input_json_convert_csv(edited_data, CSV_OUTPUT_PATH)
             else:
-                self.log_history("[ERROR] VBA simulation failed.")
+                self.log_history("[エラー] VBA シミュレーションに失敗しました。")
                 raise RuntimeError("VBA simulation failed.")
             self._timer_running = False
             self.stop_btn.config(state="disabled")
             self.start_btn.config(state="normal")
-            self.log_history("[COMPLETE] Project workflow completed.")
-            messagebox.showinfo("Completed", "Project workflow completed.")
+            self.log_history("[完了] プロジェクト ワークフローが完了しました。")
+            messagebox.showinfo("完了", "プロジェクトワークフローが完了しました。")
         except Exception as e:
             self._timer_running = False
             self.stop_btn.config(state="disabled")
@@ -446,7 +461,7 @@ class MainApp(tk.Tk):
 
     def on_close(self):
         if self._timer_running:
-            if not messagebox.askokcancel("Quit", "Workflow is running. Quit anyway?"):
+            if not messagebox.askokcancel("終了", "ワークフローは実行中です。終了しますか?"):
                 return
         self.destroy()
 
