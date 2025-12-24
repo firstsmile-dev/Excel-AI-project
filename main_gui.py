@@ -6,6 +6,7 @@ from __future__ import annotations
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
+from datetime import datetime
 import threading
 import time
 import os
@@ -17,6 +18,7 @@ import glob
 from dotenv import load_dotenv
 from openai import APIError, AuthenticationError, OpenAI
 import sys
+import pythoncom
 
 # Load environment variables from .env file
 load_dotenv()
@@ -59,9 +61,12 @@ START_ROW = 2  # Excel input starts at row 2
 MAX_RECORDS = 8000  # Limit to 10 records for testing
 # =============================
 OUTPUT_MAPPING = {
+    "D": "Amazonタイトル",
+    "C": "b_タイトル",
     "I": "タイトル",
     "F": "ASIN",
     "G": "巻数",
+    "E": "b_巻数",
 }
 
 # Configure logging
@@ -81,6 +86,7 @@ def unblock_file(file_path):
         logging.warning(f"Could not unblock file: {e}")
 
 def run_excel_process():
+    pythoncom.CoInitialize()  # Ensure COM is initialized in this thread
     """
     Automate Excel: extract only OUTPUT_MAPPING columns from the sheet and save output.
     Handles error logging and cleanup.
@@ -123,28 +129,40 @@ def run_excel_process():
         while True:
             record = {}
             empty_row = True
+            valid_color = False 
             for col, json_key in OUTPUT_MAPPING.items():
                 cell = out_sheet.Range(f"{col}{row}")
                 value = cell.Value
                 record[json_key] = value
                 if value not in (None, ""):
                     empty_row = False
-                # --- Title color check ---
-                if json_key == "タイトル":
-                    color_value = cell.DisplayFormat.Interior.Color
-                    record["color"] = (color_value == 9895780.0)
                 # --- Volume number (巻数) ---
                 if json_key == "巻数":
                     if value is None:
+                        valid_color = True
                         record["巻数"] = 1
                     else:
                         try:
                             record["巻数"] = int(value)
                         except:
+                            valid_color = True
                             record["巻数"] = 1
+                # --- Title color check ---
+                if json_key == "タイトル":
+                    color_value = cell.DisplayFormat.Interior.Color
+                    valid_color = (color_value == 9895780.0)
+                    if value is None or value == "":
+                        valid_color = True
+                if json_key == "b_タイトル":
+                    if record["b_タイトル"] is None or record["b_タイトル"] == "":
+                        valid_color = True
+                if json_key == "b_巻数":
+                    if record["b_巻数"] != record["巻数"] or record["b_巻数"] == "" or record["b_巻数"] is None:
+                        valid_color = True
             if empty_row:
                 break
-            results.append(record)
+            if valid_color:
+                results.append(record)
             row += 1
         with open(JSON_OUTPUT_PATH, "w", encoding="utf-8") as f:
             json.dump(results, f, ensure_ascii=False, indent=2)
@@ -169,7 +187,7 @@ def run_excel_process():
 
 def edit_json_with_openai(
     json_path: str,
-    model: str = "gpt-4.1-mini",
+    model: str = "gpt-4-turbo",
     api_key: str | None = None,
 ) -> Any:
     """
@@ -205,127 +223,35 @@ def edit_json_with_openai(
         ) from exc
 
     # Compose system message and user content
-    system_msg = """# Identity
-                    あなたは、入力されたテキストからマンガ／ラノベ／書籍タイトルの「正式名称のみ」を抽出し、不要要素を取り除いて整形するアシスタントです。  
-                    あなたの目的は、タイトル一覧をクリーンで一貫した形式に統一して出力することです。
-
-                    # Instructions
-                    以下のルールに厳密に従って出力してください。
-
-                    1. 入力に含まれる **話数、巻数、出版社名、サブタイトル、記号、エロ・成人タグ、説明文、広告文、シリーズ名以外の情報** をすべて削除してください。  
-                    2. 抽出対象は **作品タイトルの正式名称のみ** とします。  
-                    3. **同一作品の表記ゆれ**（全角／半角、記号、サブタイトルの有無、略称の違い）は **一つの正式な表記に統一** してください。  
-                    4. 出力は **1行につき1タイトル** とします。  
-                    5. **タイトル以外の情報を推測して追加してはいけません。**  
-                    6. 原作名とシリーズ名の区別が必要な場合は、**シリーズ名を優先** してください。  
-                    7. 表記は **日本語のまま、正式名称に統一** してください。  
-                    8. **コメントや説明文は一切書かず、タイトルのみを出力** してください。
-                    9. タイトルに巻数を示す数字（3、ローマ数字、日本語の漢数字など）が含まれている場合はお知らせください。
-                       数字が含まれているときは、それが本の巻数を正確に示しているかどうかを判定し、巻数であると判断した場合は数字だけを教えてください（例：3）。
-
-                    # Example1
-                    <user_query>
-                    ちびっ子転生日記帳～お友達いっは?いつくりましゅ!～ THE COMIC 2 (マッグガーデンコミック Beat'sシリーズ)  
-                    </user_query>
-
-                    <assistant_response>
-                    ちびっ子転生日記帳～お友達いっぱいつくりましゅ!～ THE COMIC
-                    2
-                    </assistant_response>
-
-                    # Example2
-
-                    <user_query>
-                    ミッドナイトレストラン 7to7  
-                    </user_query>
-
-                    <assistant_response>
-                    ミッドナイトレストラン 7to7
-                    0
-                    </assistant_response>
-
-                    # Example3
-
-                    <user_query>
-                    ながたんと青と-いちかの料理帖-
-                    </user_query>
-
-                    <assistant_response>
-                    ながたんと青と－いちかの料理帖－  
-                    0
-                    </assistant_response>
-
-                    # Example4
-
-                    <user_query>
-                    おっさん底辺治癒士と愛娘の辺境ライフ～中年男が回復スキルに覚醒して、英雄へ成り上がる～(コミック) :  
-                    </user_query>
-
-                    <assistant_response>
-                    おっさん底辺治癒士と愛娘の辺境ライフ～中年男が回復スキルに覚醒して、英雄へ成り上がる～ 
-                    0
-                    </assistant_response>
-
-                    # Example5
-
-                    <user_query>
-                    ハボウの轍 4 ~公安調査庁調査官・土師空也~
-                    </user_query>
-
-                    <assistant_response>
-                    ハボウの轍～公安調査庁調査官・土師空也～
-                    4
-                    </assistant_response>
-
-                    # Example6
-
-                    <user_query>
-                    バリタチNo.1に負けた俺がネコデビューするまで (DAITO COMICS)
-                    </user_query>
-
-                    <assistant_response>
-                    バリタチNo.1に負けた俺がネコデビューするまで
-                    0
-                    </assistant_response>
-
-                    # Example7
-
-                    <user_query>
-                    私と結婚した事、後悔していませんか?VI (秋水デジタルコミックス)
-                    </user_query>
-
-                    <assistant_response>
-                    私と結婚した事、後悔していませんか?
-                    4
-                    </assistant_response>
-                    
-                    # Context
-                    以下にユーザーが未整理のタイトル一覧を入力します。  
-                    ルールに従って正式タイトルのみを抽出・整形してください。"""
+    system_msg = os.getenv("SYSTEM_PROMPT")
     edited_data = []
     for item in data:
         user_content = item.get("タイトル")
-        color = item.get("color", False)
+        # Fix: Ensure user_content is always a string
+        if user_content is None or user_content == "":
+            user_content = item.get("Amazonタイトル")
+        else:
+            user_content = str(user_content)
         new_item = item.copy()
         try:
-            if color == True:
-                response = client.responses.create(
-                    model=model,
-                    instructions=system_msg,
-                    input=[
-                        {
-                            "role": "user",
-                            "content": [
-                                {
-                                    "type": "input_text",
-                                    "text": user_content,
-                                }
-                            ],
-                        }
-                    ],
-                )
-                text = response.output_text
-                print("response text", text)
+            response = client.responses.create(
+                model=model,
+                instructions=system_msg,
+                input=[
+                    {
+                        "role": "user",
+                        "content": [
+                            {
+                                "type": "input_text",
+                                "text": user_content,
+                            }
+                        ],
+                    }
+                ],
+            )
+            text = response.output_text
+            print(text)
+            if(lines := text.split("\n")) and len(lines) >= 2:
                 lines = [line.strip() for line in text.split("\n") if line.strip()]
                 title = lines[0]
                 explanation = lines[1]
@@ -356,21 +282,28 @@ def input_json_convert_csv(json_data, csv_path:str):
         logging.warning("No data provided for CSV conversion.")
         return
     try:
-        with open(csv_path, "r", encoding="cp932", errors="ignore") as f:
-            reader = csv.reader(f)
-            rows = list(reader)
-        real_data = rows[0:1]  # header row
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"結果CSV_{timestamp}.csv"
+        header_rows = list(os.getenv("HEADER_ROWS").split(",")) if os.getenv("HEADER_ROWS") else []
+        print("rows", header_rows)
+        real_data = [header_rows]
+        print("real_data", real_data)
         for item in json_data:
-            row = [""] * len(rows[0])
-            row[2] = item.get("タイトル", "") #C column
-            row[6] = item.get("巻数", "") #G column
-            row[14] = item.get("ASIN", "") #O column
-
+            row = [""] * len(header_rows)
+            if len(row) > 2:
+                row[2] = str(item.get("タイトル", "")) #C column
+            if len(row) > 6:
+                row[6] = str(item.get("巻数", "")) #G column
+            if len(row) > 14:
+                row[14] = str(item.get("ASIN", "")) #O column
             real_data.append(row)
-
-        with open(csv_path, "w", encoding="cp932", newline="") as f:
+        print("real_data", real_data)
+        # Fix: Use 'utf-8-sig' encoding for writing CSV to support all characters
+        result_path = os.path.join(PUBLIC_DIR, filename)
+        with open(result_path, "w", encoding="cp932", newline="") as f:
             writer = csv.writer(f)
             writer.writerows(real_data)
+            print("CSV saved to:", result_path)
         return True
     except Exception as exc:
         logging.error(f"Error converting JSON to CSV: {exc}")
@@ -447,11 +380,13 @@ class MainApp(tk.Tk):
             else:
                 self.log_history("[エラー] VBA シミュレーションに失敗しました。")
                 raise RuntimeError("VBA simulation failed.")
-            self._timer_running = False
-            self.stop_btn.config(state="disabled")
-            self.start_btn.config(state="normal")
-            self.log_history("[完了] プロジェクト ワークフローが完了しました。")
-            messagebox.showinfo("完了", "プロジェクトワークフローが完了しました。")
+            if(convert_info):
+                self.log_history("[INFO] CSV 変換が正常に完了しました。")
+                self._timer_running = False
+                self.stop_btn.config(state="disabled")
+                self.start_btn.config(state="normal")
+                self.log_history("[完了] プロジェクト ワークフローが完了しました。")
+                messagebox.showinfo("完了", "プロジェクトワークフローが完了しました。")
         except Exception as e:
             self._timer_running = False
             self.stop_btn.config(state="disabled")
