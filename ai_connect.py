@@ -40,7 +40,7 @@ def edit_json_with_openai(
         if not api_key_value:
             logging.error("OpenAI API key not provided. ")
             raise ValueError(
-                "OpenAI API key not provided. Set it as a parameter, or set OPENAI_API_KEY in your .env file or environment variable."
+                "set OPENAI_API_KEY in your .env file or environment variable."
             )
 
     # Initialize OpenAI client
