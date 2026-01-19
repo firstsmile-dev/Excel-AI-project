@@ -52,7 +52,7 @@ def edit_json_with_openai(
             data = json.load(file_handle)
         logging.info(f"Loaded JSON data from {json_path}")
     except FileNotFoundError as exc:
-        logging.error(f"JSON file not found: {json_path}")
+        logging.error(f"err JSON file not found: {json_path}")
         raise FileNotFoundError(f"JSON file not found: {json_path}") from exc
     except json.JSONDecodeError as exc:
         logging.error(f"Invalid JSON in file {json_path}: {exc}")
