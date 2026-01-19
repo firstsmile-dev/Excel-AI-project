@@ -191,7 +191,6 @@ def edit_json_with_openai(
     api_key: str | None = None,
 ) -> Any:
     """
-    Send JSON data to OpenAI for processing and return the edited result.
     Handles API key retrieval, error handling, and logging.
     """
     # Get API key from parameter, .env file, environment variable, or raise error
@@ -279,7 +278,7 @@ def input_json_convert_csv(json_data, csv_path:str):
     import csv
     """Convert JSON data to CSV and save to the specified path."""
     if not json_data:
-        logging.warning("No data provided for CSV conversion.")
+        logging.warning("No data provided for CSV conversion.csv_path")
         return
     try:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")

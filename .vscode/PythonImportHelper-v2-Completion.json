@@ -1,0 +1,543 @@
+[
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "logging",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "logging",
+        "description": "logging",
+        "detail": "logging",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Sequence",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Sequence",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "glob",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "glob",
+        "description": "glob",
+        "detail": "glob",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "APIError",
+        "importPath": "openai",
+        "description": "openai",
+        "isExtraImport": true,
+        "detail": "openai",
+        "documentation": {}
+    },
+    {
+        "label": "AuthenticationError",
+        "importPath": "openai",
+        "description": "openai",
+        "isExtraImport": true,
+        "detail": "openai",
+        "documentation": {}
+    },
+    {
+        "label": "OpenAI",
+        "importPath": "openai",
+        "description": "openai",
+        "isExtraImport": true,
+        "detail": "openai",
+        "documentation": {}
+    },
+    {
+        "label": "APIError",
+        "importPath": "openai",
+        "description": "openai",
+        "isExtraImport": true,
+        "detail": "openai",
+        "documentation": {}
+    },
+    {
+        "label": "AuthenticationError",
+        "importPath": "openai",
+        "description": "openai",
+        "isExtraImport": true,
+        "detail": "openai",
+        "documentation": {}
+    },
+    {
+        "label": "OpenAI",
+        "importPath": "openai",
+        "description": "openai",
+        "isExtraImport": true,
+        "detail": "openai",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "importlib",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "importlib",
+        "description": "importlib",
+        "detail": "importlib",
+        "documentation": {}
+    },
+    {
+        "label": "tkinter",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "ttk",
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "isExtraImport": true,
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "messagebox",
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "isExtraImport": true,
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "threading",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "threading",
+        "description": "threading",
+        "detail": "threading",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "win32com.client",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "win32com.client",
+        "description": "win32com.client",
+        "detail": "win32com.client",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "pythoncom",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pythoncom",
+        "description": "pythoncom",
+        "detail": "pythoncom",
+        "documentation": {}
+    },
+    {
+        "label": "edit_json_with_openai",
+        "kind": 2,
+        "importPath": "ai_connect",
+        "description": "ai_connect",
+        "peekOfCode": "def edit_json_with_openai(\n    json_path: str,\n    model: str = \"gpt-4.1-mini\",\n    api_key: str | None = None,\n) -> Any:\n    \"\"\"\n    Send JSON data to OpenAI for processing and return the edited result.\n    Handles API key retrieval, error handling, and logging.\n    \"\"\"\n    # Get API key from parameter, .env file, environment variable, or raise error",
+        "detail": "ai_connect",
+        "documentation": {}
+    },
+    {
+        "label": "input_json_convert_csv",
+        "kind": 2,
+        "importPath": "ai_connect",
+        "description": "ai_connect",
+        "peekOfCode": "def input_json_convert_csv(json_data, csv_path:str):\n    import csv\n    \"\"\"Convert JSON data to CSV and save to the specified path.\"\"\"\n    if not json_data:\n        logging.warning(\"No data provided for CSV conversion.\")\n        return\n    try:\n        with open(csv_path, \"r\", encoding=\"cp932\", errors=\"ignore\") as f:\n            reader = csv.reader(f)\n            rows = list(reader)",
+        "detail": "ai_connect",
+        "documentation": {}
+    },
+    {
+        "label": "find_file_by_ext",
+        "kind": 2,
+        "importPath": "ai_connect",
+        "description": "ai_connect",
+        "peekOfCode": "def find_file_by_ext(folder: str, ext: str) -> str | None:\n    \"\"\"Find the first file with the given extension in the folder.\"\"\"\n    files = glob.glob(os.path.join(folder, f\"*.{ext}\"))\n    return files[0] if files else None\n# Example usage:\ndef __main__():\n    try:\n        json_path = find_file_by_ext(\"./public\", \"json\")\n        csv_path = find_file_by_ext(\"./public\", \"csv\")\n        if not json_path:",
+        "detail": "ai_connect",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def main(argv: Sequence[str] | None = None) -> int:\n    \"\"\"Main CLI entry point. Reads, filters, and exports CSV data.\"\"\"\n    try:\n        # Step 1: Run vba_simulation.py workflow\n        vba_module = importlib.import_module(\"vba_simulation\")\n        vba_result = vba_module.run_excel_process()\n        if vba_result is not None:\n            # Step 2: Run ai_connect.py workflow\n            ai_module = importlib.import_module(\"ai_connect\")\n            ai_module.__main__()",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "MainApp",
+        "kind": 6,
+        "importPath": "main_gui",
+        "description": "main_gui",
+        "peekOfCode": "class MainApp(tk.Tk):\n    def __init__(self):\n        super().__init__()\n        self.title(\"Excel-AIプロジェクト\")\n        self.geometry(\"500x300\")\n        self.resizable(False, False)\n        # History window\n        history_frame = tk.LabelFrame(self, text=\"歴史\", padx=5, pady=5)\n        history_frame.pack(fill=\"both\", expand=False, padx=10, pady=10)\n        self.history_text = tk.Text(history_frame, height=10, state=\"disabled\", wrap=\"word\")",
+        "detail": "main_gui",
+        "documentation": {}
+    },
+    {
+        "label": "resource_path",
+        "kind": 2,
+        "importPath": "main_gui",
+        "description": "main_gui",
+        "peekOfCode": "def resource_path(relative_path):\n    \"\"\"Get absolute path to resource, works for dev and for PyInstaller bundle.\"\"\"\n    if hasattr(sys, '_MEIPASS'):\n        return os.path.join(sys._MEIPASS, relative_path)\n    return os.path.join(os.path.abspath(os.path.dirname(__file__)), relative_path)\ndef find_file_by_ext(folder: str, ext: str) -> str | None:\n    files = glob.glob(os.path.join(folder, f\"*.{ext}\"))\n    return files[0] if files else None\n# Update all file paths to use PUBLIC_DIR\nEXCEL_PATH = find_file_by_ext(PUBLIC_DIR, \"xlsm\")",
+        "detail": "main_gui",
+        "documentation": {}
+    },
+    {
+        "label": "find_file_by_ext",
+        "kind": 2,
+        "importPath": "main_gui",
+        "description": "main_gui",
+        "peekOfCode": "def find_file_by_ext(folder: str, ext: str) -> str | None:\n    files = glob.glob(os.path.join(folder, f\"*.{ext}\"))\n    return files[0] if files else None\n# Update all file paths to use PUBLIC_DIR\nEXCEL_PATH = find_file_by_ext(PUBLIC_DIR, \"xlsm\")\nJSON_OUTPUT_PATH = os.path.join(PUBLIC_DIR, \"target_macro_output.json\")\nCSV_OUTPUT_PATH = find_file_by_ext(PUBLIC_DIR, \"csv\")\nINPUT_SHEET = \"タイトル\"  # Sheet name (can be \"Title\" or \"タイトル\")\nOUTPUT_SHEET = \"タイトル\"\nMACRO_NAME = \"Trimming\"",
+        "detail": "main_gui",
+        "documentation": {}
+    },
+    {
+        "label": "unblock_file",
+        "kind": 2,
+        "importPath": "main_gui",
+        "description": "main_gui",
+        "peekOfCode": "def unblock_file(file_path):\n    \"\"\"Remove 'Mark of the Web' from file if it exists\"\"\"\n    try:\n        import subprocess\n        cmd = f'powershell -Command \"Unblock-File -Path \\'{file_path}\\'\"'\n        subprocess.run(cmd, shell=True, capture_output=True)\n        logging.info(f\"Unblocked file: {file_path}\")\n    except Exception as e:\n        logging.warning(f\"Could not unblock file: {e}\")\ndef run_excel_process():",
+        "detail": "main_gui",
+        "documentation": {}
+    },
+    {
+        "label": "run_excel_process",
+        "kind": 2,
+        "importPath": "main_gui",
+        "description": "main_gui",
+        "peekOfCode": "def run_excel_process():\n    pythoncom.CoInitialize()  # Ensure COM is initialized in this thread\n    \"\"\"\n    Automate Excel: extract only OUTPUT_MAPPING columns from the sheet and save output.\n    Handles error logging and cleanup.\n    \"\"\"\n    unblock_file(os.path.abspath(EXCEL_PATH))\n    excel = win32.Dispatch(\"Excel.Application\")\n    excel.Visible = True\n    excel.DisplayAlerts = True",
+        "detail": "main_gui",
+        "documentation": {}
+    },
+    {
+        "label": "edit_json_with_openai",
+        "kind": 2,
+        "importPath": "main_gui",
+        "description": "main_gui",
+        "peekOfCode": "def edit_json_with_openai(\n    json_path: str,\n    model: str = \"gpt-4-turbo\",\n    api_key: str | None = None,\n) -> Any:\n    \"\"\"\n    Handles API key retrieval, error handling, and logging.\n    \"\"\"\n    # Get API key from parameter, .env file, environment variable, or raise error\n    if api_key:",
+        "detail": "main_gui",
+        "documentation": {}
+    },
+    {
+        "label": "input_json_convert_csv",
+        "kind": 2,
+        "importPath": "main_gui",
+        "description": "main_gui",
+        "peekOfCode": "def input_json_convert_csv(json_data, csv_path:str):\n    import csv\n    \"\"\"Convert JSON data to CSV and save to the specified path.\"\"\"\n    if not json_data:\n        logging.warning(\"No data provided for CSV conversion.csv_path\")\n        return\n    try:\n        timestamp = datetime.now().strftime(\"%Y%m%d_%H%M%S\")\n        filename = f\"結果CSV_{timestamp}.csv\"\n        header_rows = list(os.getenv(\"HEADER_ROWS\").split(\",\")) if os.getenv(\"HEADER_ROWS\") else []",
+        "detail": "main_gui",
+        "documentation": {}
+    },
+    {
+        "label": "SCRIPT_DIR",
+        "kind": 5,
+        "importPath": "main_gui",
+        "description": "main_gui",
+        "peekOfCode": "SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))\n# Fix: Always use the real public folder next to the .exe for all file writes/reads\nif getattr(sys, 'frozen', False):\n    # Running as .exe\n    BASE_DIR = os.path.dirname(sys.executable)\nelse:\n    BASE_DIR = os.path.dirname(os.path.abspath(__file__))\nPUBLIC_DIR = os.path.join(BASE_DIR, 'public')\n# Utility to find first file by extension in a folder\n# Fix: Use sys._MEIPASS for PyInstaller compatibility",
+        "detail": "main_gui",
+        "documentation": {}
+    },
+    {
+        "label": "PUBLIC_DIR",
+        "kind": 5,
+        "importPath": "main_gui",
+        "description": "main_gui",
+        "peekOfCode": "PUBLIC_DIR = os.path.join(BASE_DIR, 'public')\n# Utility to find first file by extension in a folder\n# Fix: Use sys._MEIPASS for PyInstaller compatibility\ndef resource_path(relative_path):\n    \"\"\"Get absolute path to resource, works for dev and for PyInstaller bundle.\"\"\"\n    if hasattr(sys, '_MEIPASS'):\n        return os.path.join(sys._MEIPASS, relative_path)\n    return os.path.join(os.path.abspath(os.path.dirname(__file__)), relative_path)\ndef find_file_by_ext(folder: str, ext: str) -> str | None:\n    files = glob.glob(os.path.join(folder, f\"*.{ext}\"))",
+        "detail": "main_gui",
+        "documentation": {}
+    },
+    {
+        "label": "EXCEL_PATH",
+        "kind": 5,
+        "importPath": "main_gui",
+        "description": "main_gui",
+        "peekOfCode": "EXCEL_PATH = find_file_by_ext(PUBLIC_DIR, \"xlsm\")\nJSON_OUTPUT_PATH = os.path.join(PUBLIC_DIR, \"target_macro_output.json\")\nCSV_OUTPUT_PATH = find_file_by_ext(PUBLIC_DIR, \"csv\")\nINPUT_SHEET = \"タイトル\"  # Sheet name (can be \"Title\" or \"タイトル\")\nOUTPUT_SHEET = \"タイトル\"\nMACRO_NAME = \"Trimming\"\nSTART_ROW = 2  # Excel input starts at row 2\nMAX_RECORDS = 8000  # Limit to 10 records for testing\n# =============================\nOUTPUT_MAPPING = {",
+        "detail": "main_gui",
+        "documentation": {}
+    },
+    {
+        "label": "JSON_OUTPUT_PATH",
+        "kind": 5,
+        "importPath": "main_gui",
+        "description": "main_gui",
+        "peekOfCode": "JSON_OUTPUT_PATH = os.path.join(PUBLIC_DIR, \"target_macro_output.json\")\nCSV_OUTPUT_PATH = find_file_by_ext(PUBLIC_DIR, \"csv\")\nINPUT_SHEET = \"タイトル\"  # Sheet name (can be \"Title\" or \"タイトル\")\nOUTPUT_SHEET = \"タイトル\"\nMACRO_NAME = \"Trimming\"\nSTART_ROW = 2  # Excel input starts at row 2\nMAX_RECORDS = 8000  # Limit to 10 records for testing\n# =============================\nOUTPUT_MAPPING = {\n    \"D\": \"Amazonタイトル\",",
+        "detail": "main_gui",
+        "documentation": {}
+    },
+    {
+        "label": "CSV_OUTPUT_PATH",
+        "kind": 5,
+        "importPath": "main_gui",
+        "description": "main_gui",
+        "peekOfCode": "CSV_OUTPUT_PATH = find_file_by_ext(PUBLIC_DIR, \"csv\")\nINPUT_SHEET = \"タイトル\"  # Sheet name (can be \"Title\" or \"タイトル\")\nOUTPUT_SHEET = \"タイトル\"\nMACRO_NAME = \"Trimming\"\nSTART_ROW = 2  # Excel input starts at row 2\nMAX_RECORDS = 8000  # Limit to 10 records for testing\n# =============================\nOUTPUT_MAPPING = {\n    \"D\": \"Amazonタイトル\",\n    \"C\": \"b_タイトル\",",
+        "detail": "main_gui",
+        "documentation": {}
+    },
+    {
+        "label": "INPUT_SHEET",
+        "kind": 5,
+        "importPath": "main_gui",
+        "description": "main_gui",
+        "peekOfCode": "INPUT_SHEET = \"タイトル\"  # Sheet name (can be \"Title\" or \"タイトル\")\nOUTPUT_SHEET = \"タイトル\"\nMACRO_NAME = \"Trimming\"\nSTART_ROW = 2  # Excel input starts at row 2\nMAX_RECORDS = 8000  # Limit to 10 records for testing\n# =============================\nOUTPUT_MAPPING = {\n    \"D\": \"Amazonタイトル\",\n    \"C\": \"b_タイトル\",\n    \"I\": \"タイトル\",",
+        "detail": "main_gui",
+        "documentation": {}
+    },
+    {
+        "label": "OUTPUT_SHEET",
+        "kind": 5,
+        "importPath": "main_gui",
+        "description": "main_gui",
+        "peekOfCode": "OUTPUT_SHEET = \"タイトル\"\nMACRO_NAME = \"Trimming\"\nSTART_ROW = 2  # Excel input starts at row 2\nMAX_RECORDS = 8000  # Limit to 10 records for testing\n# =============================\nOUTPUT_MAPPING = {\n    \"D\": \"Amazonタイトル\",\n    \"C\": \"b_タイトル\",\n    \"I\": \"タイトル\",\n    \"F\": \"ASIN\",",
+        "detail": "main_gui",
+        "documentation": {}
+    },
+    {
+        "label": "MACRO_NAME",
+        "kind": 5,
+        "importPath": "main_gui",
+        "description": "main_gui",
+        "peekOfCode": "MACRO_NAME = \"Trimming\"\nSTART_ROW = 2  # Excel input starts at row 2\nMAX_RECORDS = 8000  # Limit to 10 records for testing\n# =============================\nOUTPUT_MAPPING = {\n    \"D\": \"Amazonタイトル\",\n    \"C\": \"b_タイトル\",\n    \"I\": \"タイトル\",\n    \"F\": \"ASIN\",\n    \"G\": \"巻数\",",
+        "detail": "main_gui",
+        "documentation": {}
+    },
+    {
+        "label": "START_ROW",
+        "kind": 5,
+        "importPath": "main_gui",
+        "description": "main_gui",
+        "peekOfCode": "START_ROW = 2  # Excel input starts at row 2\nMAX_RECORDS = 8000  # Limit to 10 records for testing\n# =============================\nOUTPUT_MAPPING = {\n    \"D\": \"Amazonタイトル\",\n    \"C\": \"b_タイトル\",\n    \"I\": \"タイトル\",\n    \"F\": \"ASIN\",\n    \"G\": \"巻数\",\n    \"E\": \"b_巻数\",",
+        "detail": "main_gui",
+        "documentation": {}
+    },
+    {
+        "label": "MAX_RECORDS",
+        "kind": 5,
+        "importPath": "main_gui",
+        "description": "main_gui",
+        "peekOfCode": "MAX_RECORDS = 8000  # Limit to 10 records for testing\n# =============================\nOUTPUT_MAPPING = {\n    \"D\": \"Amazonタイトル\",\n    \"C\": \"b_タイトル\",\n    \"I\": \"タイトル\",\n    \"F\": \"ASIN\",\n    \"G\": \"巻数\",\n    \"E\": \"b_巻数\",\n}",
+        "detail": "main_gui",
+        "documentation": {}
+    },
+    {
+        "label": "OUTPUT_MAPPING",
+        "kind": 5,
+        "importPath": "main_gui",
+        "description": "main_gui",
+        "peekOfCode": "OUTPUT_MAPPING = {\n    \"D\": \"Amazonタイトル\",\n    \"C\": \"b_タイトル\",\n    \"I\": \"タイトル\",\n    \"F\": \"ASIN\",\n    \"G\": \"巻数\",\n    \"E\": \"b_巻数\",\n}\n# Configure logging\nlogging.basicConfig(",
+        "detail": "main_gui",
+        "documentation": {}
+    },
+    {
+        "label": "find_file_by_ext",
+        "kind": 2,
+        "importPath": "vba_simulation",
+        "description": "vba_simulation",
+        "peekOfCode": "def find_file_by_ext(folder: str, ext: str) -> str | None:\n    files = glob.glob(os.path.join(folder, f\"*.{ext}\"))\n    return files[0] if files else None\nEXCEL_PATH = find_file_by_ext(os.path.join(SCRIPT_DIR, \"public\"), \"xlsm\")\nJSON_OUTPUT_PATH = find_file_by_ext(os.path.join(SCRIPT_DIR, \"public\"), \"json\")\nINPUT_SHEET = \"タイトル\"  # Sheet name (can be \"Title\" or \"タイトル\")\nOUTPUT_SHEET = \"タイトル\"\nMACRO_NAME = \"Trimming\"\nSTART_ROW = 2  # Excel input starts at row 2\nMAX_RECORDS = 8000  # Limit to 10 records for testing",
+        "detail": "vba_simulation",
+        "documentation": {}
+    },
+    {
+        "label": "unblock_file",
+        "kind": 2,
+        "importPath": "vba_simulation",
+        "description": "vba_simulation",
+        "peekOfCode": "def unblock_file(file_path):\n    \"\"\"Remove 'Mark of the Web' from file if it exists\"\"\"\n    try:\n        import subprocess\n        cmd = f'powershell -Command \"Unblock-File -Path \\'{file_path}\\'\"'\n        subprocess.run(cmd, shell=True, capture_output=True)\n        logging.info(f\"Unblocked file: {file_path}\")\n    except Exception as e:\n        logging.warning(f\"Could not unblock file: {e}\")\ndef run_excel_process():",
+        "detail": "vba_simulation",
+        "documentation": {}
+    },
+    {
+        "label": "run_excel_process",
+        "kind": 2,
+        "importPath": "vba_simulation",
+        "description": "vba_simulation",
+        "peekOfCode": "def run_excel_process():\n    \"\"\"\n    Automate Excel: extract only OUTPUT_MAPPING columns from the sheet and save output.\n    Handles error logging and cleanup.\n    \"\"\"\n    unblock_file(os.path.abspath(EXCEL_PATH))\n    excel = win32.Dispatch(\"Excel.Application\")\n    excel.Visible = True\n    excel.DisplayAlerts = True\n    excel.AskToUpdateLinks = False",
+        "detail": "vba_simulation",
+        "documentation": {}
+    },
+    {
+        "label": "SCRIPT_DIR",
+        "kind": 5,
+        "importPath": "vba_simulation",
+        "description": "vba_simulation",
+        "peekOfCode": "SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))\n# Utility to find first file by extension in a folder\ndef find_file_by_ext(folder: str, ext: str) -> str | None:\n    files = glob.glob(os.path.join(folder, f\"*.{ext}\"))\n    return files[0] if files else None\nEXCEL_PATH = find_file_by_ext(os.path.join(SCRIPT_DIR, \"public\"), \"xlsm\")\nJSON_OUTPUT_PATH = find_file_by_ext(os.path.join(SCRIPT_DIR, \"public\"), \"json\")\nINPUT_SHEET = \"タイトル\"  # Sheet name (can be \"Title\" or \"タイトル\")\nOUTPUT_SHEET = \"タイトル\"\nMACRO_NAME = \"Trimming\"",
+        "detail": "vba_simulation",
+        "documentation": {}
+    },
+    {
+        "label": "EXCEL_PATH",
+        "kind": 5,
+        "importPath": "vba_simulation",
+        "description": "vba_simulation",
+        "peekOfCode": "EXCEL_PATH = find_file_by_ext(os.path.join(SCRIPT_DIR, \"public\"), \"xlsm\")\nJSON_OUTPUT_PATH = find_file_by_ext(os.path.join(SCRIPT_DIR, \"public\"), \"json\")\nINPUT_SHEET = \"タイトル\"  # Sheet name (can be \"Title\" or \"タイトル\")\nOUTPUT_SHEET = \"タイトル\"\nMACRO_NAME = \"Trimming\"\nSTART_ROW = 2  # Excel input starts at row 2\nMAX_RECORDS = 8000  # Limit to 10 records for testing\n# Configure logging\nlogging.basicConfig(\n    level=logging.INFO,",
+        "detail": "vba_simulation",
+        "documentation": {}
+    },
+    {
+        "label": "JSON_OUTPUT_PATH",
+        "kind": 5,
+        "importPath": "vba_simulation",
+        "description": "vba_simulation",
+        "peekOfCode": "JSON_OUTPUT_PATH = find_file_by_ext(os.path.join(SCRIPT_DIR, \"public\"), \"json\")\nINPUT_SHEET = \"タイトル\"  # Sheet name (can be \"Title\" or \"タイトル\")\nOUTPUT_SHEET = \"タイトル\"\nMACRO_NAME = \"Trimming\"\nSTART_ROW = 2  # Excel input starts at row 2\nMAX_RECORDS = 8000  # Limit to 10 records for testing\n# Configure logging\nlogging.basicConfig(\n    level=logging.INFO,\n    format=\"%(asctime)s [%(levelname)s] %(message)s\"",
+        "detail": "vba_simulation",
+        "documentation": {}
+    },
+    {
+        "label": "INPUT_SHEET",
+        "kind": 5,
+        "importPath": "vba_simulation",
+        "description": "vba_simulation",
+        "peekOfCode": "INPUT_SHEET = \"タイトル\"  # Sheet name (can be \"Title\" or \"タイトル\")\nOUTPUT_SHEET = \"タイトル\"\nMACRO_NAME = \"Trimming\"\nSTART_ROW = 2  # Excel input starts at row 2\nMAX_RECORDS = 8000  # Limit to 10 records for testing\n# Configure logging\nlogging.basicConfig(\n    level=logging.INFO,\n    format=\"%(asctime)s [%(levelname)s] %(message)s\"\n)",
+        "detail": "vba_simulation",
+        "documentation": {}
+    },
+    {
+        "label": "OUTPUT_SHEET",
+        "kind": 5,
+        "importPath": "vba_simulation",
+        "description": "vba_simulation",
+        "peekOfCode": "OUTPUT_SHEET = \"タイトル\"\nMACRO_NAME = \"Trimming\"\nSTART_ROW = 2  # Excel input starts at row 2\nMAX_RECORDS = 8000  # Limit to 10 records for testing\n# Configure logging\nlogging.basicConfig(\n    level=logging.INFO,\n    format=\"%(asctime)s [%(levelname)s] %(message)s\"\n)\n# =============================",
+        "detail": "vba_simulation",
+        "documentation": {}
+    },
+    {
+        "label": "MACRO_NAME",
+        "kind": 5,
+        "importPath": "vba_simulation",
+        "description": "vba_simulation",
+        "peekOfCode": "MACRO_NAME = \"Trimming\"\nSTART_ROW = 2  # Excel input starts at row 2\nMAX_RECORDS = 8000  # Limit to 10 records for testing\n# Configure logging\nlogging.basicConfig(\n    level=logging.INFO,\n    format=\"%(asctime)s [%(levelname)s] %(message)s\"\n)\n# =============================\n# MAPPING (📌 You must update)",
+        "detail": "vba_simulation",
+        "documentation": {}
+    },
+    {
+        "label": "START_ROW",
+        "kind": 5,
+        "importPath": "vba_simulation",
+        "description": "vba_simulation",
+        "peekOfCode": "START_ROW = 2  # Excel input starts at row 2\nMAX_RECORDS = 8000  # Limit to 10 records for testing\n# Configure logging\nlogging.basicConfig(\n    level=logging.INFO,\n    format=\"%(asctime)s [%(levelname)s] %(message)s\"\n)\n# =============================\n# MAPPING (📌 You must update)\n# =============================",
+        "detail": "vba_simulation",
+        "documentation": {}
+    },
+    {
+        "label": "MAX_RECORDS",
+        "kind": 5,
+        "importPath": "vba_simulation",
+        "description": "vba_simulation",
+        "peekOfCode": "MAX_RECORDS = 8000  # Limit to 10 records for testing\n# Configure logging\nlogging.basicConfig(\n    level=logging.INFO,\n    format=\"%(asctime)s [%(levelname)s] %(message)s\"\n)\n# =============================\n# MAPPING (📌 You must update)\n# =============================\n# Output Mapping: Excel Column → JSON key in result",
+        "detail": "vba_simulation",
+        "documentation": {}
+    },
+    {
+        "label": "OUTPUT_MAPPING",
+        "kind": 5,
+        "importPath": "vba_simulation",
+        "description": "vba_simulation",
+        "peekOfCode": "OUTPUT_MAPPING = {\n    \"I\": \"タイトル\",\n    \"F\": \"ASIN\",\n    \"G\": \"巻数\",\n}\n# =============================\ndef unblock_file(file_path):\n    \"\"\"Remove 'Mark of the Web' from file if it exists\"\"\"\n    try:\n        import subprocess",
+        "detail": "vba_simulation",
+        "documentation": {}
+    }
+]
