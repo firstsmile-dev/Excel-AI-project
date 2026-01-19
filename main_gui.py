@@ -261,7 +261,7 @@ def edit_json_with_openai(
                 new_item["タイトル"] = user_content
             edited_data.append(new_item)
         except json.JSONDecodeError as exc:
-            logging.error(f"Model did not return valid JSON: {exc}")
+            logging.error(f"Model: {exc}")
             raise ValueError(
                 f"Model did not return valid JSON: {exc}"
             ) from exc
